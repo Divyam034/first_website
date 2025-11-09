@@ -1,0 +1,58 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <div class="floating-hearts"></div>
+  <main style="display:flex;flex-direction:column;align-items:center;justify-content:center;min-height:90vh;">
+    <section style="text-align:center;max-width:520px;margin:0 auto;">
+      <div class="logo" style="font-family:'Poppins',sans-serif;font-size:3.2rem;font-weight:800;letter-spacing:2px;">DJ∞verse</div>
+      <div class="tagline" style="font-family:'Poppins',sans-serif;font-size:1.3rem;font-weight:600;margin-bottom:18px;">A universe for Divyam & Jyoti</div>
+      <div style="margin:0 auto 32px auto;max-width:420px;background:var(--white);border-radius:16px;box-shadow:0 2px 24px #22223b0a;padding:22px 28px 18px 28px;">
+        <span id="hero-quote" style="font-size:1.15rem;color:var(--secondary);font-family:'Poppins',sans-serif;font-weight:500;">“You are my today and all of my tomorrows.”</span>
+      </div>
+      <a href="{% url 'gallery' %}" class="enter" style="margin-top:18px;">Enter Gallery</a>
+    </section>
+  </main>
+  <script>
+    // Rotating hero quote with typewriter effect
+    const heroQuotes = [
+      {text: "You are my today and all of my tomorrows."},
+      {text: "In all the world, there is no heart for me like yours."},
+      {text: "Whatever our souls are made of, yours and mine are the same."},
+      {text: "I love you not only for what you are, but for what I am when I am with you."},
+      {text: "You are my sun, my moon, and all my stars."},
+      {text: "If I had a flower for every time I thought of you, I could walk in my garden forever."},
+      {text: "I look at you and see the rest of my life in front of my eyes."},
+      {text: "You are the best thing I never planned."}
+    ];
+    let hqIdx = 0;
+    function typeWriterQuote(text, el, speed = 64, cb) {
+      el.textContent = '';
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          el.textContent += text.charAt(i);
+          // Add a little random jitter for vintage effect
+          let jitter = 0;
+          if (text.charAt(i) !== ' ') {
+            jitter = Math.floor(Math.random() * 40); // 0-40ms extra for non-space chars
+          }
+          i++;
+          setTimeout(type, speed + jitter);
+        } else if (cb) {
+          cb();
+        }
+      }
+      type();
+    }
+    function showHeroQuote() {
+      const q = heroQuotes[hqIdx];
+      const el = document.getElementById('hero-quote');
+      typeWriterQuote(`“${q.text}”`, el, 64);
+      hqIdx = (hqIdx + 1) % heroQuotes.length;
+    }
+    setInterval(showHeroQuote, 7000);
+    document.addEventListener('DOMContentLoaded', function() {
+      showHeroQuote();
+    });
+  </script>
+{% endblock %}

@@ -1,0 +1,80 @@
+<!doctype html>
+{% load static %}
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>DJ∞verse — US</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="{% static 'css/site.css' %}">
+</head>
+<body>
+  <div id="hearts-container"></div>
+  <button class="audio-toggle" onclick="toggleAudio()" style="position:fixed;bottom:24px;right:24px;z-index:200;background:var(--primary);color:var(--white);border:none;border-radius:50%;width:48px;height:48px;font-size:1.6rem;box-shadow:0 2px 12px #22223b22;cursor:pointer;">&#9835;</button>
+  <audio id="bg-audio" src="{% static 'audio/romantic_bg.mp3' %}" loop></audio>
+  <!-- Elegant fixed quote bar -->
+  <div id="quote-bar" style="position:fixed;top:0;left:0;width:100vw;background:var(--primary);color:var(--white);font-family:'Poppins',sans-serif;font-size:1.1rem;font-weight:600;letter-spacing:0.02em;padding:14px 0;text-align:center;z-index:100;box-shadow:0 2px 16px #22223b0a;">
+    <span id="quote-text">“You are my today and all of my tomorrows.”</span>
+    <span id="quote-author" style="font-weight:400;opacity:0.7;margin-left:12px;">— Leo Christopher</span>
+  </div>
+  <header class="site-header" style="margin-top:64px;">
+    <div class="wrap">
+      <h1 class="logo" style="font-family:'Poppins',sans-serif;">DJ∞verse</h1>
+      <p class="subtitle" style="font-family:'Poppins',sans-serif;">A little world of Ghibli-inspired art — for Jyoti 💫</p>
+    </div>
+  </header>
+  <main class="wrap">
+    {% block content %}{% endblock %}
+  </main>
+  <footer class="site-footer">
+    <div class="wrap" style="font-family:'Poppins',sans-serif;">Made with <span style="color:var(--accent);font-size:1.2em;">&#10084;</span> by Divyam — for Jyoti</div>
+  </footer>
+  <script src="{% static 'js/love_new.js' %}"></script>
+  <script>
+    // Seamless autoplay workaround for browsers
+    function tryPlayAudio() {
+      const audio = document.getElementById('bg-audio');
+      if (audio && audio.paused) {
+        audio.volume = 0.5;
+        audio.play().catch(() => {});
+      }
+    }
+    document.addEventListener('DOMContentLoaded', function() {
+      setTimeout(tryPlayAudio, 500);
+    });
+    document.addEventListener('click', tryPlayAudio, {once:true});
+    // Audio toggle
+    function toggleAudio() {
+      const audio = document.getElementById('bg-audio');
+      if(audio.paused) { audio.play(); } else { audio.pause(); }
+    }
+  </script>
+  <script>
+    // Rotating premium quotes
+    const quotes = [
+      {text: "I love you not only for what you are, but for what I am when I am with you.", author: "Roy Croft"},
+      {text: "You are my sun, my moon, and all my stars.", author: "E.E. Cummings"},
+      {text: "If I had a flower for every time I thought of you, I could walk in my garden forever.", author: "Tennyson"},
+      {text: "I look at you and see the rest of my life in front of my eyes.", author: "Unknown"},
+      {text: "You are the best thing I never planned.", author: "Unknown"},
+      {text: "You are my today and all of my tomorrows.", author: "Leo Christopher"},
+      {text: "In all the world, there is no heart for me like yours.", author: "Maya Angelou"},
+      {text: "Whatever our souls are made of, yours and mine are the same.", author: "Emily Brontë"}
+    ];
+    let quoteIdx = 0;
+    // No typewriter effect for top header quote
+    function showQuote() {
+      const q = quotes[quoteIdx];
+      document.getElementById('quote-text').textContent = `“${q.text}”`;
+      document.getElementById('quote-author').textContent = '';
+      quoteIdx = (quoteIdx + 1) % quotes.length;
+    }
+    setInterval(showQuote, 7000);
+    document.addEventListener('DOMContentLoaded', function() {
+      showQuote();
+    });
+  </script>
+</body>
+</html>

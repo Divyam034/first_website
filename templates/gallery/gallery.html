@@ -1,0 +1,57 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+  <section class="intro" style="text-align:center; margin-bottom:32px;">
+    <h2 style="font-size:2.2rem; color:var(--primary); margin-bottom:8px; font-weight:800;">Our Gallery</h2>
+    <div style="margin:0 auto 24px auto;max-width:420px;background:var(--white);border-radius:16px;box-shadow:0 2px 24px #22223b0a;padding:22px 28px 18px 28px;">
+  <span id="gallery-quote" style="font-size:1.15rem;color:var(--secondary);font-family:'Poppins',sans-serif;font-weight:500;">“A curated gallery of our memories — just for you.”</span>
+    </div>
+  </section>
+  <section class="grid">
+    {% if photos %}
+      {% for p in photos %}
+        <figure class="card">
+          <img src="{{ p.image.url }}" alt="{{ p.title }}">
+          <figcaption>{{ p.title }}</figcaption>
+        </figure>
+      {% endfor %}
+    {% else %}
+      <p>No photos yet. Upload via admin or place images in <code>media/ghibli/</code>.</p>
+    {% endif %}
+  </section>
+  <script>
+    // Rotating gallery quote with typewriter effect
+    const galleryQuotes = [
+      {text: "A curated gallery of our memories — just for you."},
+      {text: "Every photo is a love letter in pixels."},
+      {text: "Art is how we decorate space, love is how we decorate time."},
+      {text: "The best thing to hold onto in life is each other."},
+      {text: "Love brought us here, memories keep us close."}
+    ];
+    let gqIdx = 0;
+    function typeWriterQuote(text, el, speed = 50000, cb) {
+      el.textContent = '';
+      let i = 0;
+      function type() {
+        if (i < text.length) {
+          el.textContent += text.charAt(i);
+          i++;
+          setTimeout(type, speed);
+        } else if (cb) {
+          cb();
+        }
+      }
+      type();
+    }
+    function showGalleryQuote() {
+      const q = galleryQuotes[gqIdx];
+      const el = document.getElementById('gallery-quote');
+      typeWriterQuote(`“${q.text}”`, el, 64);
+      gqIdx = (gqIdx + 1) % galleryQuotes.length;
+    }
+    setInterval(showGalleryQuote, 7000);
+    document.addEventListener('DOMContentLoaded', function() {
+      showGalleryQuote();
+    });
+  </script>
+{% endblock %}
