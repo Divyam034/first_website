@@ -47,19 +47,8 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dyotiverse_site.wsgi.application'
 
-# DATABASES = {
-#     'default': dj_database_url.config(default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')
-# }
-
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': os.getenv('DB_NAME'),       # from Render dashboard
-        'USER': os.getenv('DB_USER'),       # from Render dashboard
-        'PASSWORD': os.getenv('DB_PASSWORD'), # from Render dashboard
-        'HOST': os.getenv('DB_HOST'),       # from Render dashboard
-        'PORT': '5432',
-    }
+    'default': dj_database_url.config(default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')
 }
 
 LANGUAGE_CODE = 'en-us'
