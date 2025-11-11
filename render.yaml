@@ -1,0 +1,18 @@
+services:
+  - type: web
+    name: dyotiverse
+    env: python
+    plan: free
+    buildCommand: |
+      pip install -r requirements.txt
+      python manage.py collectstatic --noinput
+    startCommand: gunicorn dyotiverse_site.wsgi:application --log-file -
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: dyotiverse_site.settings
+      - key: DEBUG
+        value: "False"
+    autoDeploy: true
+    healthCheckPath: /
+    # Apply migrations after each deploy
+    postdeploy: python manage.py migrate

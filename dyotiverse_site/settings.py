@@ -28,6 +28,7 @@ MIDDLEWARE = [
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
 
 ROOT_URLCONF = 'dyotiverse_site.urls'
@@ -47,8 +48,14 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'dyotiverse_site.wsgi.application'
 
+_db_url = os.environ.get('DATABASE_URL', '')
+_ssl_req = bool(_db_url) and not _db_url.startswith('sqlite')
 DATABASES = {
-    'default': dj_database_url.config(default=f'sqlite:///{BASE_DIR / "db.sqlite3"}')
+    'default': dj_database_url.config(
+        default=f'sqlite:///{BASE_DIR / "db.sqlite3"}',
+        conn_max_age=600,
+        ssl_require=_ssl_req,
+    )
 }
 
 LANGUAGE_CODE = 'en-us'
@@ -66,3 +73,33 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Security & proxy headers for Render/production
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+CSRF_TRUSTED_ORIGINS = [
+    (
+        f"https://*.{h.lstrip('.')}" if h.startswith('.') else f"https://{h}"
+    )
+    for h in ALLOWED_HOSTS
+    if h and h != '*'
+]
+
+# Optional strict HTTPS in production (enable via env)
+SECURE_SSL_REDIRECT = os.environ.get('SECURE_SSL_REDIRECT', 'False') == 'True'
+SESSION_COOKIE_SECURE = os.environ.get('SESSION_COOKIE_SECURE', 'False') == 'True'
+CSRF_COOKIE_SECURE = os.environ.get('CSRF_COOKIE_SECURE', 'False') == 'True'
+
+# Basic console logging for errors (visible in Render logs)
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': False,
+    'handlers': {
+        'console': {
+            'class': 'logging.StreamHandler',
+        },
+    },
+    'root': {
+        'handlers': ['console'],
+        'level': 'INFO',
+    },
+}
