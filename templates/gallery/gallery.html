@@ -11,7 +11,7 @@
     {% if photos %}
       {% for p in photos %}
         <figure class="card">
-          <img src="{{ p.image.url }}" alt="{{ p.title }}">
+          <img src="{{ p.image.url }}" alt="{{ p.title }}" class="enlargeable sparkle" data-title="{{ p.title }}">
           <figcaption>{{ p.title }}</figcaption>
         </figure>
       {% endfor %}
@@ -19,6 +19,7 @@
       <p>No photos yet. Upload via admin or place images in <code>media/ghibli/</code>.</p>
     {% endif %}
   </section>
+  <!-- Lightbox Modal removed -->
   <script>
     // Rotating gallery quote with typewriter effect
     const galleryQuotes = [
@@ -52,6 +53,7 @@
     setInterval(showGalleryQuote, 7000);
     document.addEventListener('DOMContentLoaded', function() {
       showGalleryQuote();
+      // Lightbox/modal logic removed
     });
   </script>
 {% endblock %}
