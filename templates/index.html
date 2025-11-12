@@ -66,7 +66,7 @@
     }
   </style>
   <script>
-    // Rotating hero quote with typewriter effect
+    // Rotating hero quote with typewriter effect (with end pause)
     const heroQuotes = [
       {text: "You are my today and all of my tomorrows."},
       {text: "In all the world, there is no heart for me like yours."},
@@ -77,8 +77,10 @@
       {text: "I look at you and see the rest of my life in front of my eyes."},
       {text: "You are the best thing I never planned."}
     ];
+    const TYPE_SPEED = 64;        // ms per character baseline
+    const END_PAUSE_MS = 2000;    // wait this long after a quote finishes
     let hqIdx = 0;
-    function typeWriterQuote(text, el, speed = 64, cb) {
+    function typeWriterQuote(text, el, speed = TYPE_SPEED, cb) {
       // Cancel any previous typing timers for this element to avoid overlapping runs
       if (el._typingTimers && Array.isArray(el._typingTimers)) {
         el._typingTimers.forEach(id => clearTimeout(id));
@@ -109,15 +111,21 @@
       }
       type();
     }
-    function showHeroQuote() {
-      const q = heroQuotes[hqIdx];
+    function cycleHeroQuote() {
       const el = document.getElementById('hero-quote');
-      typeWriterQuote(`“${q.text}”`, el, 64);
-      hqIdx = (hqIdx + 1) % heroQuotes.length;
+      const q = heroQuotes[hqIdx];
+      typeWriterQuote(`“${q.text}”`, el, TYPE_SPEED, () => {
+        // After finishing a quote, pause before moving to the next
+        const tid = setTimeout(() => {
+          hqIdx = (hqIdx + 1) % heroQuotes.length;
+          cycleHeroQuote();
+        }, END_PAUSE_MS);
+        // Track this timeout so a future restart can cancel it
+        if (el && el._typingTimers) el._typingTimers.push(tid);
+      });
     }
-    setInterval(showHeroQuote, 7000);
     document.addEventListener('DOMContentLoaded', function() {
-      showHeroQuote();
+      cycleHeroQuote();
       // Love clock: update every second from START_DATE
       // TODO: Set your real start date/time here (local time). Example below is a placeholder.
   const START_DATE = new Date('2018-02-05T00:00:00');
@@ -137,7 +145,7 @@
         clockEl.textContent = `${days} days ${pad2(hours)} hours ${pad2(mins)} minutes ${pad2(secs)} seconds`;
       }
       updateLoveClock();
-      setInterval(updateLoveClock, 1000);
+  setInterval(updateLoveClock, 1000);
 
       // Real-time creation of floral heart
       const stage = document.querySelector('.heart-stage');
