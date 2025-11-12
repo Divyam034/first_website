@@ -344,7 +344,7 @@ body {
 .card figcaption {
   margin: 0;
   padding: clamp(16px, 3.6vw, 22px) clamp(18px, 4vw, 26px);
-  color: var(--text-on-dark);
+  color: var(--text-soft);
   font-weight: 600;
   letter-spacing: 0.04em;
   line-height: 1.45;
@@ -486,7 +486,7 @@ body {
   font-weight: 600;
   letter-spacing: 0.04em;
   line-height: 1.3;
-  color: var(--text-on-dark);
+  color: var(--text-soft);
   background: linear-gradient(to top, rgba(0, 0, 0, 0.5) 60%, rgba(0, 0, 0, 0));
   position: relative;
   z-index: 2;
