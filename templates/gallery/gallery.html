@@ -2,16 +2,16 @@
 {% load static %}
 {% block content %}
   <section class="intro" style="text-align:center; margin-bottom:32px;">
-    <h2 style="font-size:1.6rem; color:var(--primary); margin-bottom:8px; font-weight:800;">Our Gallery</h2>
+  <h2 style="font-size:1.85rem; color:var(--primary); margin-bottom:8px; font-weight:800;">Our Gallery</h2>
     <div style="margin:0 auto 24px auto;max-width:420px;background:var(--white);border-radius:16px;box-shadow:0 2px 24px #22223b0a;padding:22px 28px 18px 28px;">
-  <span id="gallery-quote" style="font-size:1.15rem;color:var(--secondary);font-family:'Poppins',sans-serif;font-weight:500;">“A curated gallery of our memories — just for you.”</span>
+  <span id="gallery-quote" style="font-size:1.25rem;color:var(--secondary);font-family:'Poppins',sans-serif;font-weight:500;">“A curated gallery of our memories — just for you.”</span>
     </div>
   </section>
   <section class="grid">
     {% if photos %}
       {% for p in photos %}
         <figure class="card">
-          <img src="{{ p.image.url }}" alt="{{ p.title }}" class="enlargeable sparkle" data-title="{{ p.title }}">
+          <img src="{{ p.image.url }}" alt="{{ p.title }}" class="enlargeable sparkle" data-title="{{ p.title }}" loading="lazy" decoding="async">
           <figcaption>{{ p.title }}</figcaption>
         </figure>
       {% endfor %}
