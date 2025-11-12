@@ -14,12 +14,7 @@
   <div id="hearts-container"></div>
   <button class="audio-toggle" onclick="toggleAudio()" style="position:fixed;bottom:24px;right:24px;z-index:200;background:var(--primary);color:var(--white);border:none;border-radius:50%;width:48px;height:48px;font-size:1.6rem;box-shadow:0 2px 12px #22223b22;cursor:pointer;">&#9835;</button>
   <audio id="bg-audio" src="{% static 'audio/romantic_bg.mp3' %}" loop></audio>
-  <!-- Elegant fixed quote bar -->
-  <div id="quote-bar" style="position:fixed;top:0;left:0;width:100vw;background:var(--primary);color:var(--white);font-family:'Poppins',sans-serif;font-size:1.2rem;font-weight:600;letter-spacing:0.02em;padding:14px 0;text-align:center;z-index:100;box-shadow:0 2px 16px #22223b0a;">
-    <span id="quote-text">“You are my today and all of my tomorrows.”</span>
-    <span id="quote-author" style="font-weight:400;opacity:0.7;margin-left:12px;">— Leo Christopher</span>
-  </div>
-  <header class="site-header" style="margin-top:64px;">
+  <header class="site-header" style="margin-top:16px;">
     <div class="wrap">
       <h1 class="logo" style="
         font-family:'Fredoka','Poppins',sans-serif;
@@ -67,30 +62,6 @@
       if(audio.paused) { audio.play(); } else { audio.pause(); }
     }
   </script>
-  <script>
-    // Rotating premium quotes
-    const quotes = [
-      {text: "I love you not only for what you are, but for what I am when I am with you.", author: "Roy Croft"},
-      {text: "You are my sun, my moon, and all my stars.", author: "E.E. Cummings"},
-      {text: "If I had a flower for every time I thought of you, I could walk in my garden forever.", author: "Tennyson"},
-      {text: "I look at you and see the rest of my life in front of my eyes.", author: "Unknown"},
-      {text: "You are the best thing I never planned.", author: "Unknown"},
-      {text: "You are my today and all of my tomorrows.", author: "Leo Christopher"},
-      {text: "In all the world, there is no heart for me like yours.", author: "Maya Angelou"},
-      {text: "Whatever our souls are made of, yours and mine are the same.", author: "Emily Brontë"}
-    ];
-    let quoteIdx = 0;
-    // No typewriter effect for top header quote
-    function showQuote() {
-      const q = quotes[quoteIdx];
-      document.getElementById('quote-text').textContent = `“${q.text}”`;
-      document.getElementById('quote-author').textContent = '';
-      quoteIdx = (quoteIdx + 1) % quotes.length;
-    }
-    setInterval(showQuote, 7000);
-    document.addEventListener('DOMContentLoaded', function() {
-      showQuote();
-    });
-  </script>
+  
 </body>
 </html>
