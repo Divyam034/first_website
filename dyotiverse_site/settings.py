@@ -7,7 +7,8 @@ load_dotenv()
 
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', os.environ.get('SECRET_KEY', 'unsafe-default'))
-DEBUG = os.environ.get('DEBUG', 'False') == 'True'
+_debug_value = os.environ.get('DEBUG', 'False')
+DEBUG = str(_debug_value).strip().lower() in {'true', '1', 'yes', 'on'}
 ALLOWED_HOSTS = os.environ.get('ALLOWED_HOSTS', '.onrender.com').split(',')
 
 INSTALLED_APPS = [
