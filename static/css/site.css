@@ -182,14 +182,56 @@ body {
 }
 
 /* Header & Branding */
-.site-header { text-align: center; margin-top: 12px; }
+.site-header {
+  position: relative;
+  text-align: center;
+  margin-top: 12px;
+  padding: 28px 0 16px;
+}
+.site-header::before {
+  /* Soft glow behind the brand */
+  content: '';
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 6px;
+  width: min(92%, 900px);
+  height: 160px;
+  background:
+    radial-gradient(60% 90% at 50% 10%, rgba(239,71,111,0.18), transparent 70%),
+    radial-gradient(40% 70% at 20% 30%, rgba(17,138,178,0.16), transparent 70%),
+    radial-gradient(40% 70% at 80% 30%, rgba(205,180,255,0.16), transparent 70%);
+  filter: blur(22px);
+  opacity: 0.9;
+  pointer-events: none;
+  z-index: 0;
+}
+.brand {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  z-index: 1;
+}
+.brand-ornament {
+  width: min(92%, 560px);
+  height: 6px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(239,71,111,0.35), rgba(17,138,178,0.35));
+  box-shadow: 0 6px 24px rgba(17,138,178,0.22), 0 2px 10px rgba(239,71,111,0.18), inset 0 1px 0 rgba(255,255,255,0.18);
+}
 .logo {
-  font-size: clamp(3rem, 2.4rem + 1vw, 3.4rem);
+  font-size: clamp(3.1rem, 2.2rem + 2vw, 3.8rem);
   color: var(--accent);
-  font-family: inherit;
+  font-family: 'Fredoka','Poppins',sans-serif;
   font-weight: 800;
-  margin: 0 0 6px 0;
-  letter-spacing: 1.5px;
+  margin: 0;
+  letter-spacing: 2px;
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.12em;
+  line-height: 1;
 }
 .dj-logo {
   /* High-contrast animated gradient text for dark background */
@@ -217,18 +259,21 @@ body {
 }
 .dj-logo .infinity {
   animation: infinityPulse 2.4s ease-in-out infinite;
+  margin: 0 0.06em;
+  font-size: 1.08em;
 }
 @keyframes infinityPulse {
   0%, 100% { transform: scale(1); filter: drop-shadow(0 0 0 rgba(255, 221, 85, 0)); }
   50% { transform: scale(1.12); filter: drop-shadow(0 0 8px rgba(255, 221, 85, 0.6)); }
 }
 .subtitle {
-  color: var(--secondary);
-  font-size: clamp(1.22rem, 1.12rem + 0.28vw, 1.38rem);
-  font-weight: 500;
-  margin: 0 0 8px 0;
-  font-family: inherit;
+  color: var(--text-soft);
+  font-size: clamp(1.12rem, 1.02rem + 0.28vw, 1.32rem);
+  font-weight: 600;
+  margin: 8px 0 0 0;
+  font-family: 'Fredoka','Poppins',sans-serif;
 }
+.sparkle-emoji { font-size: 1.15em; }
 .tagline {
   color: var(--secondary);
   font-size: clamp(1.36rem, 1.2rem + 0.4vw, 1.58rem);

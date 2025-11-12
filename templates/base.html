@@ -10,18 +10,19 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;800&family=Fredoka:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="{% static 'css/site.css' %}">
 </head>
-  <body style="background:#333044; font-family: 'Fredoka', 'Poppins', sans-serif;">
+  <body>
   <div id="hearts-container"></div>
   <button class="audio-toggle" onclick="toggleAudio()" style="position:fixed;bottom:24px;right:24px;z-index:200;background:var(--primary);color:var(--text-on-dark);border:none;border-radius:50%;width:48px;height:48px;font-size:1.6rem;box-shadow:0 2px 12px #22223b22;cursor:pointer;">&#9835;</button>
   <audio id="bg-audio" src="{% static 'audio/romantic_bg.mp3' %}" loop></audio>
-  <header class="site-header" style="margin-top:16px;">
+  <header class="site-header">
     <div class="wrap">
-      <h1 class="logo dj-logo" style="font-family:'Fredoka','Poppins',sans-serif; letter-spacing:2px; display:inline-flex; align-items:center;">
-        <span style="margin-right:0.18em;">DJ</span>
-        <span class="infinity" style="font-size:1.1em;margin:0 0.1em;">∞</span>
-        <span>verse</span>
-      </h1>
-  <p class="subtitle" style="font-family:'Fredoka','Poppins',sans-serif;color:#118ab2;">A little world of Ghibli-inspired art — for Jyoti <span style="font-size:1.3em;">✨</span></p>
+      <div class="brand">
+        <h1 class="logo dj-logo" aria-label="DJ Infinity Verse">
+          <span class="dj">DJ</span><span class="infinity" aria-hidden="true">∞</span><span class="verse">verse</span>
+        </h1>
+        <div class="brand-ornament" aria-hidden="true"></div>
+      </div>
+      <p class="subtitle">A little world of Ghibli-inspired art <span class="sparkle-emoji" aria-hidden="true">✨</span></p>
     </div>
   </header>
   <main class="wrap page-main">
