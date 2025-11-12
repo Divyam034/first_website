@@ -12,24 +12,14 @@
 </head>
   <body style="background:#333044; font-family: 'Fredoka', 'Poppins', sans-serif;">
   <div id="hearts-container"></div>
-  <button class="audio-toggle" onclick="toggleAudio()" style="position:fixed;bottom:24px;right:24px;z-index:200;background:var(--primary);color:var(--white);border:none;border-radius:50%;width:48px;height:48px;font-size:1.6rem;box-shadow:0 2px 12px #22223b22;cursor:pointer;">&#9835;</button>
+  <button class="audio-toggle" onclick="toggleAudio()" style="position:fixed;bottom:24px;right:24px;z-index:200;background:var(--primary);color:var(--text-on-dark);border:none;border-radius:50%;width:48px;height:48px;font-size:1.6rem;box-shadow:0 2px 12px #22223b22;cursor:pointer;">&#9835;</button>
   <audio id="bg-audio" src="{% static 'audio/romantic_bg.mp3' %}" loop></audio>
   <header class="site-header" style="margin-top:16px;">
     <div class="wrap">
-      <h1 class="logo" style="
-        font-family:'Fredoka','Poppins',sans-serif;
-        letter-spacing:2px;
-        background: linear-gradient(90deg, #ef476f 20%, #f8e1f4 80%);
-        -webkit-background-clip: text;
-        -webkit-text-fill-color: transparent;
-  background-clip: text;
-        filter: drop-shadow(0 2px 12px #f8e1f4) drop-shadow(0 1px 0 #fff8fa);
-        display: inline-flex;
-        align-items: center;
-      ">
+      <h1 class="logo dj-logo" style="font-family:'Fredoka','Poppins',sans-serif; letter-spacing:2px; display:inline-flex; align-items:center;">
         <span style="margin-right:0.18em;">DJ</span>
-        <span style="font-size:1.1em;margin:0 0.1em;">∞</span>
-  <span>verse</span>
+        <span class="infinity" style="font-size:1.1em;margin:0 0.1em;">∞</span>
+        <span>verse</span>
       </h1>
   <p class="subtitle" style="font-family:'Fredoka','Poppins',sans-serif;color:#118ab2;">A little world of Ghibli-inspired art — for Jyoti <span style="font-size:1.3em;">✨</span></p>
     </div>
@@ -38,7 +28,7 @@
     {% block content %}{% endblock %}
   </main>
   <footer class="site-footer">
-  <div class="wrap" style="font-family:'Fredoka','Poppins',sans-serif;font-size:1.2rem;color:#ef476f;">
+  <div class="wrap" style="font-family:'Fredoka','Poppins',sans-serif;font-size:1.2rem;color:var(--text-on-dark);">
       Made with <span style="color:#ef476f;font-size:1.3em;">&#10084;</span> by Divyam — for Jyoti
     </div>
   </footer>
