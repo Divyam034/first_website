@@ -40,7 +40,14 @@
   <style>
     @keyframes twinkle { 0%, 100% { transform: scale(0.9) rotate(0deg); opacity: 0.6; } 50% { transform: scale(1.15) rotate(8deg); opacity: 1; } }
     @keyframes floral-pop { 0% { transform: translate(-50%, -50%) scale(0.6) rotate(-8deg); opacity: 0; } 100% { transform: translate(-50%, -50%) scale(1) rotate(0); opacity: 1; } }
-    .heart-flower { position:absolute; transform: translate(-50%, -50%); filter: drop-shadow(0 2px 8px rgba(239,71,111,0.18)); animation: floral-pop 380ms ease-out both; }
+    .heart-flower {
+      position:absolute;
+      transform: translate(-50%, -50%);
+      color: var(--accent); /* default; most will be set per-element via JS */
+      /* soft glow that follows the assigned color */
+      text-shadow: 0 1px 2px rgba(0,0,0,0.25), 0 0 8px currentColor;
+      animation: floral-pop 380ms ease-out both;
+    }
     @media (max-width: 420px) {
       /* Push inner content further down on small screens */
       .love-heart-clock .heart-center { inset: 26% 8% 6% 8% !important; }
@@ -137,7 +144,10 @@
       const floralLayer = document.querySelector('.heart-florals');
       if (stage && floralLayer) {
         // Prepare points along a parametric heart curve
-        const flowers = ['🌸','🌼','🌷','🌺','💐'];
+        // Use colorable flower glyphs so we can match the site's theme
+        const flowers = ['✿','❀','❁','✽','❃'];
+        // Palette aligned with site theme: accent (pink) and secondary (teal)
+        const palette = ['var(--accent)', 'var(--secondary)', 'var(--accent)', 'var(--accent)'];
   const total = 160; // number of flowers
   const duration = 2300; // total creation duration in ms
   let startTs = performance.now();
@@ -159,11 +169,16 @@
           const span = document.createElement('span');
           span.className = 'heart-flower';
           span.textContent = flowers[i % flowers.length];
+          // Assign a theme color (skew a bit towards accent)
+          span.style.color = palette[i % palette.length];
           // Responsive size
           const base = Math.max(14, Math.min(24, stage.clientWidth * 0.04));
           span.style.left = px + '%';
           span.style.top = py + '%';
           span.style.fontSize = base + 'px';
+          // Tiny organic rotation variation
+          const rot = (Math.random() * 14 - 7).toFixed(2); // -7 to +7 deg
+          span.style.transform = `translate(-50%, -50%) rotate(${rot}deg)`;
           // Staggered animation delay for nice cascade
           span.style.animationDelay = (i * (duration/total) * 0.65) + 'ms';
           floralLayer.appendChild(span);
