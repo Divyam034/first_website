@@ -72,9 +72,19 @@
     ];
     let hqIdx = 0;
     function typeWriterQuote(text, el, speed = 64, cb) {
+      // Cancel any previous typing timers for this element to avoid overlapping runs
+      if (el._typingTimers && Array.isArray(el._typingTimers)) {
+        el._typingTimers.forEach(id => clearTimeout(id));
+      }
+      el._typingTimers = [];
+      // Bump a token so stale timeouts early-return
+      el._typingToken = (el._typingToken || 0) + 1;
+      const token = el._typingToken;
+
       el.textContent = '';
       let i = 0;
       function type() {
+        if (token !== el._typingToken) return; // a newer run started
         if (i < text.length) {
           el.textContent += text.charAt(i);
           // Add a little random jitter for vintage effect
@@ -83,9 +93,11 @@
             jitter = Math.floor(Math.random() * 40); // 0-40ms extra for non-space chars
           }
           i++;
-          setTimeout(type, speed + jitter);
-        } else if (cb) {
-          cb();
+          const tid = setTimeout(type, speed + jitter);
+          el._typingTimers.push(tid);
+        } else {
+          // done
+          if (cb) cb();
         }
       }
       type();

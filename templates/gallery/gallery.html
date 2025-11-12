@@ -30,16 +30,27 @@
       {text: "Love brought us here, memories keep us close."}
     ];
     let gqIdx = 0;
-    function typeWriterQuote(text, el, speed = 50000, cb) {
+    function typeWriterQuote(text, el, speed = 64, cb) {
+      // Cancel any previous typing timers for this element to avoid overlapping runs
+      if (el._typingTimers && Array.isArray(el._typingTimers)) {
+        el._typingTimers.forEach(id => clearTimeout(id));
+      }
+      el._typingTimers = [];
+      // Token guard so stale timeouts do nothing
+      el._typingToken = (el._typingToken || 0) + 1;
+      const token = el._typingToken;
+
       el.textContent = '';
       let i = 0;
       function type() {
+        if (token !== el._typingToken) return;
         if (i < text.length) {
           el.textContent += text.charAt(i);
           i++;
-          setTimeout(type, speed);
-        } else if (cb) {
-          cb();
+          const tid = setTimeout(type, speed);
+          el._typingTimers.push(tid);
+        } else {
+          if (cb) cb();
         }
       }
       type();
@@ -47,7 +58,7 @@
     function showGalleryQuote() {
       const q = galleryQuotes[gqIdx];
       const el = document.getElementById('gallery-quote');
-      typeWriterQuote(`“${q.text}”`, el, 64);
+  typeWriterQuote(`“${q.text}”`, el, 64);
       gqIdx = (gqIdx + 1) % galleryQuotes.length;
     }
     setInterval(showGalleryQuote, 7000);
