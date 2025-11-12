@@ -134,6 +134,7 @@
   --surface: #3a3652; /* dark card surface */
   --surface-2: #2f2b44; /* deeper surface */
   --text-on-dark: #eef1ff;
+  --text-soft: #cfd4ff; /* dimmer text for headings/quotes/footer */
   --muted-on-dark: #c7cffc;
   --primary: #2d3142;
   --accent: #ef476f;
@@ -395,7 +396,7 @@ body {
 .site-footer {
   padding: 24px;
   text-align: center;
-  color: var(--text-on-dark);
+  color: var(--text-soft);
   border-top: 1px solid rgba(255,255,255,0.08);
   margin-top: 36px;
   font-size: 1.08rem;
