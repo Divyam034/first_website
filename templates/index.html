@@ -126,9 +126,9 @@
       if (stage && floralLayer) {
         // Prepare points along a parametric heart curve
         const flowers = ['🌸','🌼','🌷','🌺','💐'];
-        const total = 160; // number of flowers
-        const duration = 2300; // total creation duration in ms
-        const startTs = performance.now();
+  const total = 160; // number of flowers
+  const duration = 2300; // total creation duration in ms
+  let startTs = performance.now();
         // Normalize to keep heart inside square box
         function heartXY(t){
           const x = 16 * Math.pow(Math.sin(t), 3);
@@ -175,6 +175,7 @@
             // Rebuild on resize
             floralLayer.innerHTML = '';
             i = 0;
+            startTs = performance.now();
             requestAnimationFrame(() => { requestAnimationFrame(step); });
           }, 120);
         });

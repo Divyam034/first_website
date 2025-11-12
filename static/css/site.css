@@ -130,7 +130,7 @@
 }
 /* Premium Light Gradient Theme — Cleaned and Modern */
 :root {
-  --bg: linear-gradient(135deg, #e0eafc 0%, #f8e1f4 100%);
+  --bg: #333044;
   --primary: #2d3142;
   --accent: #ef476f;
   --secondary: #118ab2;
