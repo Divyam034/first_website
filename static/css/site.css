@@ -154,6 +154,9 @@ body {
   font-size: var(--font-base);
   line-height: 1.75;
   letter-spacing: 0.01em;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
 }
 
 /* Header & Branding */
@@ -353,6 +356,8 @@ body {
 /* Gallery layout fixes */
 .page-main {
   padding-bottom: clamp(48px, 8vw, 96px);
+  flex: 1 0 auto;
+  width: 100%;
 }
 
 .grid {
